@@ -1,16 +1,62 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:weatherapp/pages/homepage/widgets/widgets.dart';
 
 import '../../utilities/utilities.dart';
 import '../forecastpage/forecastpage.dart';
 import '../widgets/widgets.dart';
 
-class Homepage extends StatelessWidget {
+class Homepage extends StatefulWidget {
   const Homepage({Key? key}) : super(key: key);
 
   static const routeName = '/';
+
+  @override
+  State<Homepage> createState() => _HomepageState();
+}
+
+class _HomepageState extends State<Homepage> {
+  @override
+  void initState() {
+    super.initState();
+    _getCurrentLocation();
+  }
+
+  Position? _currentPosition;
+
+  _getCurrentLocation() async {
+    LocationPermission? permission;
+    bool? serviceEnabled;
+
+    serviceEnabled = await Geolocator.isLocationServiceEnabled();
+
+    if (!serviceEnabled) {
+      return Future.error('Location services are disabled!');
+    }
+
+    permission = await Geolocator.checkPermission();
+
+    if (permission == LocationPermission.denied) {
+      permission = await Geolocator.requestPermission();
+      if (permission == LocationPermission.denied) {
+        return Future.error('Location permission denied.');
+      }
+    }
+    if (permission == LocationPermission.deniedForever) {
+      return Future.error(
+          'Location permissions are permanently denied, provide permissions to use feature.');
+    }
+
+    await Geolocator.getCurrentPosition(desiredAccuracy: LocationAccuracy.best)
+        .then((value) {
+      setState(() {
+        _currentPosition = value;
+      });
+      print(_currentPosition);
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -65,7 +111,7 @@ class Homepage extends StatelessWidget {
                 ],
               ),
               Text(
-                'Thunderstorms',
+                '${_currentPosition?.latitude} ${_currentPosition?.longitude}',
                 style: AppTextStyles.paragraphBold.copyWith(
                   color: Colors.white38,
                 ),
