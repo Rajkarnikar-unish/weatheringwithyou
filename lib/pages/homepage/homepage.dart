@@ -111,7 +111,9 @@ class _HomepageState extends State<Homepage> {
                 ],
               ),
               Text(
-                '${_currentPosition?.latitude} ${_currentPosition?.longitude}',
+                (_currentPosition == null)
+                    ? 'Loading...'
+                    : '${_currentPosition?.latitude} ${_currentPosition?.longitude}',
                 style: AppTextStyles.paragraphBold.copyWith(
                   color: Colors.white38,
                 ),
@@ -151,7 +153,7 @@ class _HomepageState extends State<Homepage> {
               ),
               sBoxH8,
               SizedBox(
-                height: 110,
+                height: MediaQuery.of(context).size.height * 0.15,
                 child: ListView.separated(
                   scrollDirection: Axis.horizontal,
                   physics: const BouncingScrollPhysics(),
