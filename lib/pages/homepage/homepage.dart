@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:geolocator/geolocator.dart';
+import 'package:weatherapp/pages/data/services/weather_services.dart';
 import 'package:weatherapp/pages/homepage/widgets/widgets.dart';
 
 import '../../utilities/utilities.dart';
@@ -22,7 +23,10 @@ class _HomepageState extends State<Homepage> {
   void initState() {
     super.initState();
     _getCurrentLocation();
+    _weatherServices.getWeatherData();
   }
+
+  final WeatherServices _weatherServices = WeatherServices();
 
   Position? _currentPosition;
 
@@ -54,7 +58,7 @@ class _HomepageState extends State<Homepage> {
       setState(() {
         _currentPosition = value;
       });
-      print(_currentPosition);
+      // print(_currentPosition);
     });
   }
 
@@ -153,7 +157,7 @@ class _HomepageState extends State<Homepage> {
               ),
               sBoxH8,
               SizedBox(
-                height: MediaQuery.of(context).size.height * 0.15,
+                height: 110, // MediaQuery.of(context).size.height * 0.15,
                 child: ListView.separated(
                   scrollDirection: Axis.horizontal,
                   physics: const BouncingScrollPhysics(),

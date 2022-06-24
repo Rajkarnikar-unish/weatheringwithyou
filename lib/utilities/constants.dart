@@ -1,5 +1,5 @@
 ///OpenWeatherMap API KEY
-const apiKey = 'f6cff28f836a179e915ad8524dd46018';
+const apiKey = '279111cb1891483d93dc32aed18819b6';
 
 ///OpenWeatherMap API URL
-const apiURL = "https://api.openweathermap.org/data/2.5/weather";
+const apiURL = "https://api.weatherbit.io/v2.0/";
