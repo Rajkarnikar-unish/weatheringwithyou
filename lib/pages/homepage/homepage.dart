@@ -23,7 +23,6 @@ class _HomepageState extends State<Homepage> {
   void initState() {
     super.initState();
     _getCurrentLocation();
-    _weatherServices.getWeatherData();
   }
 
   final WeatherServices _weatherServices = WeatherServices();
@@ -58,7 +57,8 @@ class _HomepageState extends State<Homepage> {
       setState(() {
         _currentPosition = value;
       });
-      // print(_currentPosition);
+      _weatherServices.getWeatherData(
+          _currentPosition?.latitude, _currentPosition?.longitude);
     });
   }
 

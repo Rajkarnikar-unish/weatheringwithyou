@@ -6,12 +6,13 @@ import 'package:weatherapp/utilities/utilities.dart';
 class WeatherServices {
   final ApiClient _apiClient = ApiClient();
 
-  Future<WeatherModel> getWeatherData() async {
+  Future<Data> getWeatherData(double? lat, double? lon) async {
     try {
       final response = await _apiClient.apiClient
-          .get('${apiURL}current?lat=27.6450622&lon=85.3216952&key=$apiKey');
+          .get('${apiURL}current?lat=$lat&lon=$lon&key=$apiKey');
       final model = WeatherModel.fromJson(response.data);
-      return model;
+      print(model.data);
+      return model.data!.first;
     } on DioError catch (e) {
       throw e.message;
     }
