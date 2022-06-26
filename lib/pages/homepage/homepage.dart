@@ -6,6 +6,7 @@ import 'package:weatherapp/pages/data/services/weather_services.dart';
 import 'package:weatherapp/pages/homepage/widgets/widgets.dart';
 
 import '../../utilities/utilities.dart';
+import '../data/model/weather_model.dart';
 import '../forecastpage/forecastpage.dart';
 import '../widgets/widgets.dart';
 
@@ -28,6 +29,7 @@ class _HomepageState extends State<Homepage> {
   final WeatherServices _weatherServices = WeatherServices();
 
   Position? _currentPosition;
+  Data? data;
 
   _getCurrentLocation() async {
     LocationPermission? permission;
@@ -57,8 +59,15 @@ class _HomepageState extends State<Homepage> {
       setState(() {
         _currentPosition = value;
       });
-      _weatherServices.getWeatherData(
-          _currentPosition?.latitude, _currentPosition?.longitude);
+      _weatherServices
+          .getWeatherData(
+              _currentPosition?.latitude, _currentPosition?.longitude)
+          .then((value) {
+        setState(() {
+          data = value;
+        });
+        print("this is then garepachi: $data");
+      });
     });
   }
 
@@ -81,7 +90,7 @@ class _HomepageState extends State<Homepage> {
                   ),
                   sBoxW4,
                   Text(
-                    'Kathmandu, NP',
+                    '${data?.cityName}, ${data?.countryCode}',
                     style: AppTextStyles.bodySemiBold,
                   ),
                 ],
@@ -102,7 +111,7 @@ class _HomepageState extends State<Homepage> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    '10',
+                    '${data?.temp}',
                     style: AppTextStyles.titleBold.copyWith(fontSize: 64.sp),
                   ),
                   Text(
@@ -123,8 +132,11 @@ class _HomepageState extends State<Homepage> {
                 ),
               ),
               sBoxH20,
-              const AttributeCardWidget(
+              AttributeCardWidget(
                 cardColor: Colors.white12,
+                windValue: '${data?.windSpeed}',
+                humidityValue: '${data?.relativeHumidity}',
+                rainValue: '${data?.windSpeed}',
               ),
               sBoxH16,
               Row(

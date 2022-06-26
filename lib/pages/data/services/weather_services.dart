@@ -11,7 +11,6 @@ class WeatherServices {
       final response = await _apiClient.apiClient
           .get('${apiURL}current?lat=$lat&lon=$lon&key=$apiKey');
       final model = WeatherModel.fromJson(response.data);
-      print(model.data);
       return model.data!.first;
     } on DioError catch (e) {
       throw e.message;

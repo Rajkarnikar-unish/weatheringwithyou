@@ -95,9 +95,9 @@ class Forecastpage extends StatelessWidget {
                       ),
                       sBoxH12,
                       // ignore: prefer_const_constructors
-                      AttributeCardWidget(
-                        cardColor: Colors.black38,
-                      ),
+                      // AttributeCardWidget(
+                      //   cardColor: Colors.black38,
+                      // ),
                     ],
                   ),
                 ),

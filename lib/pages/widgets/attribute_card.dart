@@ -7,9 +7,13 @@ class AttributeCardWidget extends StatelessWidget {
   const AttributeCardWidget({
     Key? key,
     required this.cardColor,
+    required this.rainValue,
+    required this.humidityValue,
+    required this.windValue,
   }) : super(key: key);
 
   final Color cardColor;
+  final String rainValue, humidityValue, windValue;
 
   @override
   Widget build(BuildContext context) {
@@ -23,13 +27,13 @@ class AttributeCardWidget extends StatelessWidget {
         child: IntrinsicHeight(
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: const [
+            children: [
               AttributeItemWidget(
                 attributeName: 'Rain',
-                attributeValue: '87%',
+                attributeValue: '$rainValue%',
                 icon: FontAwesomeIcons.cloudShowersHeavy,
               ),
-              VerticalDivider(
+              const VerticalDivider(
                 color: Colors.white38,
                 // width: 20,
                 thickness: 1,
@@ -37,16 +41,16 @@ class AttributeCardWidget extends StatelessWidget {
               AttributeItemWidget(
                 icon: FontAwesomeIcons.droplet,
                 attributeName: 'Humidity',
-                attributeValue: '15%',
+                attributeValue: '$humidityValue%',
               ),
-              VerticalDivider(
+              const VerticalDivider(
                 color: Colors.white38,
                 thickness: 1,
               ),
               AttributeItemWidget(
                 attributeName: 'Wind',
                 icon: FontAwesomeIcons.wind,
-                attributeValue: '10 km/h',
+                attributeValue: '$windValue km/h',
               ),
             ],
           ),
